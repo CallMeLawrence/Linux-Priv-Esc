@@ -1,42 +1,44 @@
+### BASIC SYSTEM ENUM AND EASY WINS ###
 id
-
 whoami
-
 uname -a
-
 cat /etc/*release*
-
 cat /proc/version
 
+### LIVE OFF THE LAND ###
 which python2|python3  (for ptty reasons)
 
+### TOOLING ###
 which wget  (obv)
-
 which nc  (if ur lucky)
 
+### STARTING THE PRIV ESC ###
 sudo -l
-
 cat /etc/exports
 
+
+### PROCESS EVALUATION ###
 ps aux  (what users are running what tasks?)
 
+### USER ENUM ###
 cat /etc/passwd  (get user info and what permissions you have)
 
+### INTERTESTING HISTORY ###
 history (look for passwords or other intersting commands)
 
+### NETWORKING ###
 ip a 
-
 ifconfig
-
 route || ip route
-
 arp -a
-
 netstat -ano (any local servers running with local ports?)
-
 netstat -tulpn
-
 ss -tulpn
+
+### SSH KEY HUNTING ###
+find / -name authorized_keys 2>/dev/null
+find / -name id_rsa 2>/dev/null
+
 
 ### PASSWORD HUNTING ###
 grep --color=auto -rnw '/' -ie "PASSWORD" --color=always 2>/dev/null
